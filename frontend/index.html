@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Parser</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-50 font-poppins text-gray-800">
+    <nav class="bg-indigo-600 text-white py-4">
+        <div class="container mx-auto px-4">
+            <h1 class="text-2xl font-semibold">GitHub Repository Parser</h1>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+        <!-- Input Section -->
+        <section class="bg-white p-6 rounded-lg shadow-md mb-8 transition-all hover:shadow-lg">
+            <h2 class="text-xl font-semibold mb-4">Repository Details</h2>
+            <div class="space-y-4">
+                <div class="flex flex-wrap items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <input type="text" id="repo-link" placeholder="Paste GitHub repo link" class="flex-grow p-2 border rounded-md focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition">
+                    <button id="go-button" class="bg-indigo-500 text-white px-6 py-2 rounded-md hover:bg-indigo-600 transition-colors flex items-center">
+                        <span>Parse</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="flex flex-wrap items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <select id="include-exclude" class="p-2 border rounded-md focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition">
+                        <option value="">Select filter</option>
+                        <option value="include">Include</option>
+                        <option value="exclude">Exclude</option>
+                    </select>
+                    <input type="text" id="file-pattern" placeholder="File pattern (e.g., *.md)" class="flex-grow p-2 border rounded-md focus:ring-2 focus:ring-indigo-300 focus:border-indigo-500 transition">
+                </div>
+                <div class="flex items-center space-x-4">
+                    <label for="size-limit" class="whitespace-nowrap">File size limit:</label>
+                    <input type="range" id="size-limit" min="1" max="100000" value="50" class="w-full md:w-64">
+                    <span id="size-limit-value" class="w-20 text-center">50 KB</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Output Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Summary Box -->
+            <section class="bg-white p-6 rounded-lg shadow-md transition-all hover:shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Summary</h2>
+                <div id="summary-content" class="space-y-2">
+                    <p><strong>Repository:</strong> <span id="repo-name" class="text-indigo-600">username/repo-name</span></p>
+                    <p><strong>Files Analyzed:</strong> <span id="files-analyzed">0</span></p>
+                    <p><strong>Total Tokens:</strong> <span id="total-tokens">0</span></p>
+                    <p><strong>Total Characters:</strong> <span id="total-characters">0</span></p>
+                </div>
+                <div class="mt-4 space-x-2">
+                    <button id="copy-summary" class="bg-gray-100 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors">
+                        <i class="far fa-copy mr-2"></i>Copy
+                    </button>
+                    <button id="download-summary" class="bg-gray-100 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors">
+                        <i class="fas fa-download mr-2"></i>Download
+                    </button>
+                </div>
+            </section>
+            
+            <!-- Project Structure Box -->
+            <section class="bg-white p-6 rounded-lg shadow-md transition-all hover:shadow-lg">
+                <h2 class="text-xl font-semibold mb-4">Project Structure</h2>
+                <pre id="project-structure" class="bg-gray-50 p-4 rounded-md overflow-auto max-h-60 text-sm"></pre>
+                <button id="copy-structure" class="mt-4 bg-gray-100 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors">
+                    <i class="far fa-copy mr-2"></i>Copy
+                </button>
+            </section>
+        </div>
+        
+        <!-- Repo Content Box -->
+        <section class="bg-white p-6 rounded-lg shadow-md mt-8 transition-all hover:shadow-lg">
+            <h2 class="text-xl font-semibold mb-4">Repository Content</h2>
+            <pre id="repo-content" class="bg-gray-50 p-4 rounded-md overflow-auto max-h-96 text-sm"></pre>
+            <button id="copy-content" class="mt-4 bg-gray-100 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors">
+                <i class="far fa-copy mr-2"></i>Copy
+            </button>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-4 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 GitHub Repository Parser. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
